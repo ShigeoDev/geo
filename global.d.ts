@@ -1,7 +1,7 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      MAP_KEY: string;
+      NEXT_PUBLIC_MAP_KEY: string;
     }
   }
 }

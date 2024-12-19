@@ -2,7 +2,9 @@ import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import { useEffect } from "react";
 
 export default function StreetViewPanorama() {
+
   const streetViewLibrary = useMapsLibrary('streetView');
+
   useEffect(() => {
     if (streetViewLibrary) {
       new streetViewLibrary.StreetViewPanorama(
