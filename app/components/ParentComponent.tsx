@@ -2,7 +2,7 @@ import StreetViewPanorama from './StreetViewPanorama';
 import { useMapsLibrary } from '@vis.gl/react-google-maps';
 import { useEffect, useState } from 'react';
 import data from '../../data/data.json';
-import FindMap from './FindMap';
+import MiniMap from './MiniMap';
 
 export default function ParentComponent() {
 
@@ -24,8 +24,12 @@ export default function ParentComponent() {
     if (streetViewLibrary) {
       const streetViewService = new streetViewLibrary.StreetViewService();
 
-      const randLat = Math.random() * 0.6 - 0.3 + 49.241359;
-      const randLng = Math.random() * 0.6 - 0.3 - 123.112261;
+      // Vancouver Coords
+      //const randLat = Math.random() * 0.6 - 0.3 + 49.241359;
+      //const randLng = Math.random() * 0.6 - 0.3 - 123.112261;
+
+      const randLat = Math.random() * 180 - 90;
+      const randLng = Math.random() * 360 - 180;
 
       console.log(randLat, randLng);
 
@@ -52,7 +56,7 @@ export default function ParentComponent() {
   return (
     <div>
       <div className='h-96 w-96 absolute bottom-10 right-10 z-10'>
-        <FindMap />
+        <MiniMap />
       </div>
       {lat && lng && <StreetViewPanorama lat={lat} lng={lng} />}
     </div>
