@@ -14,7 +14,7 @@ export default function StreetViewPanorama({lat, lng}: {lat: number, lng: number
           position: { lat, lng },
           pov: { heading: 165, pitch: 0 },
           zoom: 1,
-          // disableDefaultUI: true,
+          disableDefaultUI: true,
           linksControl: true,
           showRoadLabels: false,
 

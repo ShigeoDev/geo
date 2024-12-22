@@ -3,6 +3,7 @@ import { useMapsLibrary } from '@vis.gl/react-google-maps';
 import { useEffect, useState } from 'react';
 import data from '../../data/data.json';
 import MiniMap from './MiniMap';
+import SubmitButtion from './SubmitButton';
 
 export default function ParentComponent() {
 
@@ -55,8 +56,9 @@ export default function ParentComponent() {
 
   return (
     <div>
-      <div className='h-96 w-96 absolute bottom-10 right-10 z-10'>
+      <div className='h-96 w-96 absolute bottom-[5rem] right-12 z-10 flex flex-col'>
         <MiniMap />
+        <SubmitButtion />
       </div>
       {lat && lng && <StreetViewPanorama lat={lat} lng={lng} />}
     </div>
