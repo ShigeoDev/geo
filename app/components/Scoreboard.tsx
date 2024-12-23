@@ -17,7 +17,9 @@ export default function Scoreboard({ score, userLat, userLng, lat, lng, goNext }
   const centerlng = (userLng + lng) / 2;
   const center = { lat: centerlat, lng: centerlng };
 
-  const zoom = Math.max(6 * (1 - (getDistanceFromLatLonInKm(userLat, userLng, lat, lng) / 14916.862) ** 1.8), 1);
+  const distance = getDistanceFromLatLonInKm(userLat, userLng, lat, lng);
+
+  const zoom = Math.max(6 * (1 - (distance / 14916.862) ** 1.8), 1);
 
   const MapLibrary = useMapsLibrary('maps');
   const map = useMap();
@@ -30,7 +32,7 @@ export default function Scoreboard({ score, userLat, userLng, lat, lng, goNext }
         draggable: false,
         path: [{ lat: userLat, lng: userLng }, { lat: lat, lng: lng }],
         strokeColor: 'black',
-        strokeWeight: 4,
+        strokeWeight: 1,
       });
     }
   }, [map]);
@@ -38,7 +40,7 @@ export default function Scoreboard({ score, userLat, userLng, lat, lng, goNext }
   return (
     <div className='h-screen w-screen'>
       <div className='h-5/6'>
-        <Map defaultCenter={center} defaultZoom={zoom} mapId={'67eb1e82a659a5f6'} disableDefaultUI={true}>
+        <Map defaultCenter={center} defaultZoom={zoom} mapId={'67eb1e82a659a5f6'} disableDefaultUI={true} minZoom={1}>
           <AdvancedMarker position={{ lat: userLat, lng: userLng }}>
             <Pin background={'blue'} borderColor={'blue'} glyphColor={'blue'} />
           </AdvancedMarker>
@@ -47,14 +49,17 @@ export default function Scoreboard({ score, userLat, userLng, lat, lng, goNext }
           </AdvancedMarker>
         </Map>
       </div>
-      <div className="bg-blue-300 h-1/6 flex flex-col">
-        <div className="text-center">
-          {score}
+      <div className="bg-blue-950 h-1/6 flex flex-row justify-center items-center gap-10">
+        <div className="text-center text-white font-bold text-4xl w-52">
+          {distance.toFixed(2)} km
         </div>
         <div className="align-middle text-center">
-          <button onClick={() => goNext()}>
+          <button onClick={() => goNext()} className="bg-green-500 rounded-full w-60 h-20 text-white font-bold text-2xl">
             Next
           </button>
+        </div>
+        <div className="text-center text-white font-bold text-4xl w-52">
+          {score} pts
         </div>
       </div>
     </div>

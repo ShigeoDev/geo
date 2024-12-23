@@ -108,6 +108,7 @@ export default function ParentComponent() {
   function goNext() {
     setShowScore(false);
     setUserCoords(null);
+    setCoords({ lat: randomLocation.lat, lng: randomLocation.lng });
   }
 
   if (showScore && userCoords) {
@@ -118,7 +119,7 @@ export default function ParentComponent() {
   else {
     return (
       <div>
-        <div className='h-[35rem] w-[45rem] scale-50 absolute bottom-[5rem] right-12 z-10 flex flex-col transition ease-in-out duration-300 transform origin-bottom-right hover:scale-100'>
+        <div className='h-[35rem] w-[45rem] scale-50 absolute bottom-[5rem] right-12 z-10 flex flex-col transition opacity-70 ease-in-out duration-300 transform origin-bottom-right hover:scale-100 hover:opacity-100'>
           <MiniMap setUserCoords={setUserCoords} />
           <SubmitButtion checkCoords={checkCoords} userCoords={userCoords} />
         </div>
