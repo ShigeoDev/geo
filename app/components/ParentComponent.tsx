@@ -116,14 +116,14 @@ export default function ParentComponent() {
     );
   }
   else {
-  return (
-    <div>
-      <div className='h-96 w-96 absolute bottom-[5rem] right-12 z-10 flex flex-col'>
-        <MiniMap setUserCoords={setUserCoords} />
-        <SubmitButtion checkCoords={checkCoords} userCoords={userCoords} />
+    return (
+      <div>
+        <div className='h-[35rem] w-[45rem] scale-50 absolute bottom-[5rem] right-12 z-10 flex flex-col transition ease-in-out duration-300 transform origin-bottom-right hover:scale-100'>
+          <MiniMap setUserCoords={setUserCoords} />
+          <SubmitButtion checkCoords={checkCoords} userCoords={userCoords} />
+        </div>
+        {lat && lng && <StreetViewPanorama lat={lat} lng={lng} />}
       </div>
-      {lat && lng && <StreetViewPanorama lat={lat} lng={lng} />}
-    </div>
-  );
+    );
   }
 }

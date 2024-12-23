@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function SubmitButtion({ checkCoords, userCoords }: { checkCoords: Function, userCoords: { userLat: number, userLng: number } | null }) {
 
@@ -8,7 +8,7 @@ export default function SubmitButtion({ checkCoords, userCoords }: { checkCoords
 
   if (userCoords) {
     return (
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl mt-3"
+      <button className="h-16 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-3 transition-colors ease-in duration-150 text-3xl"
         onClick={(event) => checkCoords(event)}>
         Submit
       </button>
@@ -16,7 +16,7 @@ export default function SubmitButtion({ checkCoords, userCoords }: { checkCoords
   }
   else {
     return (
-      <button className="bg-gray-500 text-gray-200 font-bold py-2 px-4 rounded-3xl mt-3"
+      <button className="h-16 bg-gray-500 text-gray-200 font-bold py-2 px-4 rounded-full mt-3 transition-colors ease-in duration-150 text-3xl"
         onClick={(event) => checkCoords(event)}>
         Place Pin on Map
       </button>
