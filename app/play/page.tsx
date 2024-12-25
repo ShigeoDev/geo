@@ -33,6 +33,8 @@ export default function Play() {
 
   const [data, setData] = useState<data>(JSON.parse(JSON.stringify(worldData)));
 
+  const [total, setTotal] = useState<number>(0);
+
   useEffect(() => {
     if (options.map === 'world') {
       setData(JSON.parse(JSON.stringify(worldData)));
@@ -45,16 +47,20 @@ export default function Play() {
   if (page === 'play') {
     return (
       <APIProvider apiKey={process.env.NEXT_PUBLIC_MAP_KEY}>
-        <ParentComponent data={data}/>
+        <ParentComponent data={data} unlimited={options.unlimited} setPage={setPage} setTotal={setTotal}/>
       </APIProvider>
     );
   }
   else if (page === 'options') {
     return (
-      <StartingPage setPage={setPage} setOptions={setOptions} options={options}/>
+      <StartingPage setPage={setPage} setOptions={setOptions} options={options} />
     )
   }
   else {
-
+    return (
+      <div>
+        <h1>{total}</h1>
+      </div>
+    );
   }
 }

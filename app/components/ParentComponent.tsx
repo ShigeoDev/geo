@@ -36,54 +36,14 @@ type data = {
   customCoordinates: Array<location>
 }
 
-export default function ParentComponent({ data }: { data: data}) {
-
-  /*
-  const streetViewLibrary = useMapsLibrary('streetView');
-  type StreetViewPanoramaData = google.maps.StreetViewPanoramaData | null
-  const [streetViewData, setStreetViewData] = useState<StreetViewPanoramaData>(null);
-  const [render, setRender] = useState<Boolean>(false);
-
-  useEffect(() => {
-
-
-    if (streetViewLibrary) {
-      const streetViewService = new streetViewLibrary.StreetViewService();
-
-      // Vancouver Coords
-      //const randLat = Math.random() * 0.6 - 0.3 + 49.241359;
-      //const randLng = Math.random() * 0.6 - 0.3 - 123.112261;
-
-      const randLat = Math.random() * 180 - 90;
-      const randLng = Math.random() * 360 - 180;
-
-      console.log(randLat, randLng);
-
-      const request = {
-        location: { lat: randLat, lng: randLng },
-        radius: 1000,
-        sources: [streetViewLibrary.StreetViewSource.GOOGLE],
-      streetViewService.getPanorama(request, (data, status) => {
-        if (status === 'OK') {
-          console.log(data);
-          setStreetViewData(data);
-        } else {
-          console.log('Street View data not found for this location');
-          setRender(!render);
-        }
-      });
-    }
-  }, [streetViewLibrary, render]);
-
-  const lat = streetViewData?.location?.latLng?.lat();
-  const lng = streetViewData?.location?.latLng?.lng();
-
-  */
+export default function ParentComponent({ data, unlimited, setPage, setTotal}: { data: data, unlimited: boolean, setPage: Function, setTotal: Function}) {
 
   const [userCoords, setUserCoords] = useState<{ userLat: number, userLng: number } | null>(null);
 
   const [showScore, setShowScore] = useState<Boolean>(false);
   const [score, setScore] = useState<number>(0);
+
+  const[count, setCount] = useState<number>(0);
 
   const locationNumber = Math.random() * data.customCoordinates.length;
   const randomLocation = data.customCoordinates[Math.floor(locationNumber)];
@@ -103,9 +63,19 @@ export default function ParentComponent({ data }: { data: data}) {
   }
 
   function goNext() {
+    setTotal((prev: number) => prev + score);
     setShowScore(false);
     setUserCoords(null);
     setCoords({ lat: randomLocation.lat, lng: randomLocation.lng });
+    setCount(count + 1);
+  }
+
+  if (!unlimited) {
+    useEffect(() => {
+      if (count === 5) {
+        setPage('end');
+      }
+    }, [count]);
   }
 
   useEffect(() => {
