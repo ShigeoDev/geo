@@ -54,7 +54,7 @@ export default function Scoreboard({ score, userLat, userLng, lat, lng, goNext }
           {distance.toFixed(2)} km
         </div>
         <div className="align-middle text-center">
-          <button onClick={() => goNext()} className="bg-green-500 rounded-full w-60 h-20 text-white font-bold text-2xl">
+          <button onClick={() => goNext()} className="hover:scale-105 transition ease-in-out duration-100 bg-green-500 rounded-full w-60 h-20 text-white font-bold text-2xl">
             Next
           </button>
         </div>

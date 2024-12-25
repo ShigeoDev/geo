@@ -1,7 +1,5 @@
 import StreetViewPanorama from './StreetViewPanorama';
-import { useMapsLibrary } from '@vis.gl/react-google-maps';
 import { useEffect, useState } from 'react';
-import data from '../../data/data.json';
 import MiniMap from './MiniMap';
 import SubmitButtion from './SubmitButton';
 import Scoreboard from './Scoreboard';
@@ -24,7 +22,21 @@ function deg2rad(deg: number) {
   return deg * (Math.PI / 180)
 }
 
-export default function ParentComponent() {
+type location = {
+  panoId: string,
+  lat: number,
+  lng: number,
+  heading: number,
+  pitch: number,
+  imageDate: string,
+  links: Array<string>
+}
+
+type data = {
+  customCoordinates: Array<location>
+}
+
+export default function ParentComponent({ data }: { data: data}) {
 
   /*
   const streetViewLibrary = useMapsLibrary('streetView');
@@ -67,29 +79,14 @@ export default function ParentComponent() {
   const lng = streetViewData?.location?.latLng?.lng();
 
   */
-  type location = {
-    panoId: string,
-    lat: number,
-    lng: number,
-    heading: number,
-    pitch: number,
-    imageDate: string,
-    links: Array<string>
-  }
-
-  type data = {
-    customCoordinates: Array<location>
-  }
 
   const [userCoords, setUserCoords] = useState<{ userLat: number, userLng: number } | null>(null);
 
   const [showScore, setShowScore] = useState<Boolean>(false);
   const [score, setScore] = useState<number>(0);
 
-  const locations: data = JSON.parse(JSON.stringify(data));
-
-  const locationNumber = Math.random() * locations.customCoordinates.length;
-  const randomLocation = locations.customCoordinates[Math.floor(locationNumber)];
+  const locationNumber = Math.random() * data.customCoordinates.length;
+  const randomLocation = data.customCoordinates[Math.floor(locationNumber)];
 
   const [{ lat, lng }, setCoords] = useState<{ lat: number, lng: number }>({ lat: randomLocation.lat, lng: randomLocation.lng });
 
@@ -110,6 +107,13 @@ export default function ParentComponent() {
     setUserCoords(null);
     setCoords({ lat: randomLocation.lat, lng: randomLocation.lng });
   }
+
+  useEffect(() => {
+    document.addEventListener('keydown', (event) => {
+      checkCoords(event)
+    });
+  }, [userCoords]);
+
 
   if (showScore && userCoords) {
     return (
