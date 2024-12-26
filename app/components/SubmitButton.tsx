@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 
 export default function SubmitButtion({ checkCoords, userCoords }: { checkCoords: Function, userCoords: { userLat: number, userLng: number } | null }) {
 
@@ -8,7 +8,7 @@ export default function SubmitButtion({ checkCoords, userCoords }: { checkCoords
 
   if (userCoords) {
     return (
-      <button className="h-16 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-3 transition-colors ease-in duration-150 text-3xl"
+      <button className="h-16 bg-gradient-to-r from-blue-500 to-indigo-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-3 transition-colors ease-in duration-150 text-3xl"
         onClick={(event) => checkCoords(event)}>
         Submit
       </button>

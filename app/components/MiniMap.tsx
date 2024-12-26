@@ -3,7 +3,7 @@ import { useState } from "react";
 
 
 
-export default function MiniMap({ setUserCoords }: { setUserCoords: Function }) {
+export default function MiniMap({ setUserCoords, center = {lat: 0, lng: 0}, zoom=1 }: { setUserCoords: Function, center?: {lat: number, lng: number}, zoom?: number }) {
 
   const [coords, setCoords] = useState<{ lat: number, lng: number } | null>(null);
 
@@ -18,12 +18,12 @@ export default function MiniMap({ setUserCoords }: { setUserCoords: Function }) 
 
   return (
 
-    <Map defaultCenter={{ lng: 0, lat: 0 }} defaultZoom={1} minZoom={1} 
+    <Map defaultCenter={center} defaultZoom={zoom} minZoom={1} 
       disableDefaultUI={true} clickableIcons={false} mapId={'67eb1e82a659a5f6'} 
       onClick={(event) => moveMarker(event)}>
       {coords &&
         <AdvancedMarker position={coords}>
-          <Pin />
+          <Pin glyphColor={'white'} borderColor={'indigo'} background={'blue'}/>
         </AdvancedMarker>
       }
     </Map>

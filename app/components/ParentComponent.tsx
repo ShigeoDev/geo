@@ -36,14 +36,29 @@ type data = {
   customCoordinates: Array<location>
 }
 
-export default function ParentComponent({ data, unlimited, setPage, setTotal}: { data: data, unlimited: boolean, setPage: Function, setTotal: Function}) {
+type mapSettings = {
+  center: { lat: number, lng: number },
+  zoom: number
+}
+
+type ParentComponentProps = {
+  data: data,
+  unlimited: boolean,
+  setPage: Function,
+  setTotal: Function,
+  mapSettings: mapSettings,
+  scoreConstant: number,
+  setLocations: Function,
+}
+
+export default function ParentComponent({ data, unlimited, setPage, setTotal, mapSettings, scoreConstant, setLocations }: ParentComponentProps) {
 
   const [userCoords, setUserCoords] = useState<{ userLat: number, userLng: number } | null>(null);
 
   const [showScore, setShowScore] = useState<Boolean>(false);
   const [score, setScore] = useState<number>(0);
 
-  const[count, setCount] = useState<number>(0);
+  const [count, setCount] = useState<number>(0);
 
   const locationNumber = Math.random() * data.customCoordinates.length;
   const randomLocation = data.customCoordinates[Math.floor(locationNumber)];
@@ -55,7 +70,7 @@ export default function ParentComponent({ data, unlimited, setPage, setTotal}: {
       if (event.type === 'click' || (event.type === 'keydown' && (event as KeyboardEvent).key === ' ')) {
         const distance = getDistanceFromLatLonInKm(userCoords.userLat, userCoords.userLng, lat, lng);
 
-        const caluculatedValue = Math.ceil(5000 * (Math.E ** (-10 * distance / 14916.862)))
+        const caluculatedValue = Math.ceil(5000 * (Math.E ** (-10 * distance / scoreConstant)))
         setScore(caluculatedValue);
         setShowScore(true);
       }
@@ -65,6 +80,10 @@ export default function ParentComponent({ data, unlimited, setPage, setTotal}: {
   function goNext() {
     setTotal((prev: number) => prev + score);
     setShowScore(false);
+    if (userCoords) {
+      setLocations((prev: Array<Array<{ lat: number, lng: number }>>) => {
+        return [...prev, [{ lat: userCoords.userLat, lng: userCoords.userLng }, { lat, lng }]]});
+    }
     setUserCoords(null);
     setCoords({ lat: randomLocation.lat, lng: randomLocation.lng });
     setCount(count + 1);
@@ -84,6 +103,16 @@ export default function ParentComponent({ data, unlimited, setPage, setTotal}: {
     });
   }, [userCoords]);
 
+  useEffect(() => {
+
+    if (userCoords && lat && lng) {
+      setLocations((prev: Array<Array<{ lat: number, lng: number }>>) => {
+        return [...prev, [{ lat: userCoords.userLat, lng: userCoords.userLng }, { lat, lng }]];
+      })
+    }
+
+  }, [userCoords, lat, lng])
+
 
   if (showScore && userCoords) {
     return (
@@ -94,7 +123,7 @@ export default function ParentComponent({ data, unlimited, setPage, setTotal}: {
     return (
       <div>
         <div className='h-[35rem] w-[45rem] scale-50 absolute bottom-[5rem] right-12 z-10 flex flex-col transition opacity-70 ease-in-out duration-300 transform origin-bottom-right hover:scale-100 hover:opacity-100'>
-          <MiniMap setUserCoords={setUserCoords} />
+          <MiniMap setUserCoords={setUserCoords} center={mapSettings.center} zoom={mapSettings.zoom} />
           <SubmitButtion checkCoords={checkCoords} userCoords={userCoords} />
         </div>
         {lat && lng && <StreetViewPanorama lat={lat} lng={lng} />}
