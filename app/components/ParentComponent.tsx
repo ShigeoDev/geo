@@ -82,20 +82,21 @@ export default function ParentComponent({ data, unlimited, setPage, setTotal, ma
     setShowScore(false);
     if (userCoords) {
       setLocations((prev: Array<Array<{ lat: number, lng: number }>>) => {
-        return [...prev, [{ lat: userCoords.userLat, lng: userCoords.userLng }, { lat, lng }]]});
+        return [...prev, [{ lat: userCoords.userLat, lng: userCoords.userLng }, { lat, lng }]]
+      });
     }
     setUserCoords(null);
     setCoords({ lat: randomLocation.lat, lng: randomLocation.lng });
     setCount(count + 1);
   }
 
-  if (!unlimited) {
-    useEffect(() => {
+  useEffect(() => {
+    if (!unlimited) {
       if (count === 5) {
         setPage('end');
       }
-    }, [count]);
-  }
+    }
+  }, [count]);
 
   useEffect(() => {
     document.addEventListener('keydown', (event) => {
