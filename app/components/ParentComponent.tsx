@@ -70,7 +70,7 @@ export default function ParentComponent({ data, unlimited, setPage, setTotal, ma
 
   const [{ lat, lng }, setCoords] = useState<{ lat: number, lng: number }>({ lat: randomLocation.lat, lng: randomLocation.lng });
 
-  function checkCoords(event: MouseEvent | KeyboardEvent): void {
+  function checkCoords(event: React.MouseEvent | KeyboardEvent): void {
     if (userCoords) {
       if (event.type === 'click' || (event.type === 'keydown' && (event as KeyboardEvent).key === ' ')) {
         const distance = getDistanceFromLatLonInKm(userCoords.userLat, userCoords.userLng, lat, lng);
