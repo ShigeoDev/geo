@@ -7,7 +7,7 @@ type miniMapProps = {
   zoom?: number
 }
 
-export default function MiniMap({ setUserCoords, center = {lat: 0, lng: 0}, zoom=1 }: { setUserCoords: Function, center?: {lat: number, lng: number}, zoom?: number }) {
+export default function MiniMap({ setUserCoords, center = {lat: 0, lng: 0}, zoom=1 }: miniMapProps) {
 
   const [coords, setCoords] = useState<{ lat: number, lng: number } | null>(null);
 
