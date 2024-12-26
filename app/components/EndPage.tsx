@@ -1,5 +1,6 @@
 import { Map, AdvancedMarker, Pin, useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
 import { useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 type coords = {
   lat: number,
@@ -11,7 +12,17 @@ type mapSettings = {
   zoom: number
 }
 
-export default function EndPage({ locations, mapSettings, total, setPage, setTotal, setLocations}: { locations: Array<Array<coords>>, mapSettings: mapSettings, total: number, setPage: Function, setTotal: Function, setLocations: Function}) {
+type endPageProps = {
+  locations: Array<Array<coords>>,
+  mapSettings: mapSettings,
+  total: number,
+  setPage: Dispatch<SetStateAction<"end" | "play" | "options">>,
+  setTotal: Dispatch<SetStateAction<number>>,
+  setLocations: Dispatch<SetStateAction<Array<Array<coords>>>>,
+}
+
+
+export default function EndPage({ locations, mapSettings, total, setPage, setTotal, setLocations}: endPageProps) {
 
   console.log(locations[0][0]);
 

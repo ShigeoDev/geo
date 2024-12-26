@@ -1,11 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Dispatch, SetStateAction} from "react";
 
 type Options = {
   unlimited: boolean;
   map: string;
 }
 
-export default function StartingPage({ setPage, setOptions, options }: { setPage: Function, setOptions: Function, options: Options }) {
+type startPageProps = {
+  setPage: Dispatch<SetStateAction<'play' | 'end' | 'options'>>,
+  setOptions: Dispatch<SetStateAction<Options>>,
+  options: Options
+}
+
+export default function StartingPage({ setPage, setOptions, options }: startPageProps) {
 
   const [localOptions, setLocalOptions] = useState<Options>(options);
 

@@ -1,5 +1,5 @@
 import StreetViewPanorama from './StreetViewPanorama';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import MiniMap from './MiniMap';
 import SubmitButtion from './SubmitButton';
 import Scoreboard from './Scoreboard';
@@ -41,14 +41,19 @@ type mapSettings = {
   zoom: number
 }
 
+type coords = {
+  lat: number,
+  lng: number
+}
+
 type ParentComponentProps = {
   data: data,
   unlimited: boolean,
-  setPage: Function,
-  setTotal: Function,
+  setPage: Dispatch<SetStateAction<'play' | 'end' | 'options'>>,
+  setTotal: Dispatch<SetStateAction<number>>,
   mapSettings: mapSettings,
   scoreConstant: number,
-  setLocations: Function,
+  setLocations: Dispatch<SetStateAction<coords[][]>>
 }
 
 export default function ParentComponent({ data, unlimited, setPage, setTotal, mapSettings, scoreConstant, setLocations }: ParentComponentProps) {
