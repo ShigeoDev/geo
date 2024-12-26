@@ -55,7 +55,7 @@ export default function ParentComponent({ data, unlimited, setPage, setTotal, ma
 
   const [userCoords, setUserCoords] = useState<{ userLat: number, userLng: number } | null>(null);
 
-  const [showScore, setShowScore] = useState<Boolean>(false);
+  const [showScore, setShowScore] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
 
   const [count, setCount] = useState<number>(0);
