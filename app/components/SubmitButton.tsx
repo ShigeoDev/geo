@@ -1,6 +1,13 @@
-import { useEffect} from "react";
+import { useEffect } from "react";
 
-export default function SubmitButtion({ checkCoords, userCoords }: { checkCoords: Function, userCoords: { userLat: number, userLng: number } | null }) {
+type checkCoords = (event: React.MouseEvent | KeyboardEvent) => void;
+
+type submitButtonProps = {
+  checkCoords: checkCoords,
+  userCoords: { userLat: number, userLng: number } | null
+}
+
+export default function SubmitButtion({ checkCoords, userCoords }: submitButtonProps) {
 
   useEffect(() => {
     document.addEventListener('keydown', (event) => checkCoords(event))

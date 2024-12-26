@@ -2,13 +2,15 @@ import { Map, useMap, AdvancedMarker, Pin, useMapsLibrary } from "@vis.gl/react-
 import { getDistanceFromLatLonInKm } from "./ParentComponent";
 import { useEffect } from "react";
 
+type goNext = () => void;
+
 interface ScoreboardProps {
   score: number;
   userLat: number;
   userLng: number;
   lat: number;
   lng: number;
-  goNext: Function;
+  goNext: goNext;
 }
 
 export default function Scoreboard({ score, userLat, userLng, lat, lng, goNext }: ScoreboardProps) {
