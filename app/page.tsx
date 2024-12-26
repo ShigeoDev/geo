@@ -5,11 +5,11 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-screen py-6 bg-gradient-to-r from-blue-500 to-indigo-600">
       <main className="flex flex-col items-center justify-center w-full flex-1 px-10 text-center text-white">
         <h1 className="text-6xl font-extrabold mb-4">
-          GeoFinder
+          PinThePlace
         </h1>
 
         <p className="mt-3 text-2xl font-semibold">
-          Explore the World
+          Explore the World through Street View
         </p>
 
         <div className="mt-6">
