@@ -104,12 +104,6 @@ export default function ParentComponent({ data, unlimited, setPage, setTotal, ma
   }, [count]);
 
   useEffect(() => {
-    document.addEventListener('keydown', (event) => {
-      checkCoords(event)
-    });
-  }, [userCoords]);
-
-  useEffect(() => {
 
     if (userCoords && lat && lng) {
       setLocations((prev: Array<Array<{ lat: number, lng: number }>>) => {
