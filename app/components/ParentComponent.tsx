@@ -1,7 +1,5 @@
 import StreetViewPanorama from './StreetViewPanorama';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import MiniMap from './MiniMap';
-import SubmitButtion from './SubmitButton';
 import Scoreboard from './Scoreboard';
 import Utilities from './Utilities';
 
