@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import MiniMap from './MiniMap';
 import SubmitButtion from './SubmitButton';
 import Scoreboard from './Scoreboard';
+import Utilities from './Utilities';
 
 export function getDistanceFromLatLonInKm(lat1: number, lon1: number, lat2: number, lon2: number) {
   const R = 6371; // Radius of the earth in km
@@ -122,10 +123,12 @@ export default function ParentComponent({ data, unlimited, setPage, setTotal, ma
   else {
     return (
       <div>
-        <div className='h-[35rem] w-[45rem] scale-50 absolute bottom-[5rem] right-12 z-10 flex flex-col transition opacity-70 ease-in-out duration-300 transform origin-bottom-right hover:scale-100 hover:opacity-100'>
-          <MiniMap setUserCoords={setUserCoords} center={mapSettings.center} zoom={mapSettings.zoom} />
-          <SubmitButtion checkCoords={checkCoords} userCoords={userCoords} />
-        </div>
+        <Utilities
+          setUserCoords={setUserCoords}
+          center={mapSettings.center}
+          zoom={mapSettings.zoom}
+          checkCoords={checkCoords}
+          userCoords={userCoords} />
         {lat && lng && <StreetViewPanorama lat={lat} lng={lng} />}
       </div>
     );

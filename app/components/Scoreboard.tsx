@@ -40,8 +40,8 @@ export default function Scoreboard({ score, userLat, userLng, lat, lng, goNext }
   }, [map]);
 
   return (
-    <div className='h-screen w-screen'>
-      <div className='h-5/6'>
+    <div className='h-screen w-screen flex flex-col'>
+      <div className='lg:h-5/6 h-2/3'>
         <Map defaultCenter={center} defaultZoom={zoom} mapId={'67eb1e82a659a5f6'} disableDefaultUI={true} minZoom={1}>
           <AdvancedMarker position={{ lat: userLat, lng: userLng }}>
             <Pin background={'blue'} borderColor={'indigo'} glyphColor={'white'} />
@@ -51,7 +51,8 @@ export default function Scoreboard({ score, userLat, userLng, lat, lng, goNext }
           </AdvancedMarker>
         </Map>
       </div>
-      <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-1/6 flex flex-row justify-center items-center gap-10">
+      <div className="lg:h-1/6 h-1/3
+        bg-gradient-to-r from-blue-500 to-indigo-600 flex flex-row justify-center items-center gap-10">
         <div>
           <div className="text-center text-white font-bold text-4xl w-52">
             {distance.toFixed(2)} km
@@ -61,7 +62,7 @@ export default function Scoreboard({ score, userLat, userLng, lat, lng, goNext }
           </div>
         </div>
         <div className="align-middle text-center">
-          <button onClick={() => goNext()} className="hover:scale-105 transition ease-in-out duration-150 bg-white rounded-md w-60 h-16 text-indigo-600 font-bold text-2xl shadow-md">
+          <button onClick={() => goNext()} className="hover:scale-105 transition ease-in-out duration-150 bg-white rounded-md max-w-60 w-auto min-w-32 h-16 text-indigo-600 font-bold text-2xl shadow-md">
             Next
           </button>
         </div>
